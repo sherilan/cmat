@@ -177,19 +177,14 @@ class ConfusionMatrix:
     '''
     Load a confusion matrix from json
     '''
-    cmat = pd.read_json( filepath )
-    # Json only preserves column order, fix row order
-    # so that the ideal matrix is a diagonal
-    cmat = cmat.loc[ cmat.columns ]
-    return ConfusionMatrix( cmat )
+    return ConfusionMatrix( pd.read_csv( filepath, index_col=0 ))
 
 
   def save( self, filepath ):
     '''
-    Save the current cmat to json
+    Save the current cmat to csv
     '''
-    with open(  filepath, 'w' ) as f:
-      json.dump( self.cmat.to_dict(), f )
+    self.cmat.to_csv( filepath )
 
 
   VALID_CMAT_FILTERS = {'true', 'pred', 'either', 'both' }
