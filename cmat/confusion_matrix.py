@@ -164,7 +164,7 @@ class ConfusionMatrix:
     # Separate list of true/pred indices 
     t,p  = zip( *indices )
     # Initialize confusion matrix
-    cmat = np.zeros((len(labels),len(labels)))
+    cmat = np.zeros((len(labels),len(labels)), dtype=int )
     # Set count entries
     cmat[t,p] = count 
     # Wrap in pandas dataframes with name index 
@@ -248,9 +248,9 @@ class ConfusionMatrix:
     '''
     Plot a confusiono matrix 
     '''
+    plt = config.pyplot() #  matplotlib.pyplot
     if ax is None:
       size = max( self.num_classes, 5 )
-      plt = config.pyplot()
       plt.figure( figsize=(size,size) )
       ax = plt.gca()
         
